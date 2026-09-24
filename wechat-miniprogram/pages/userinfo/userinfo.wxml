@@ -1,0 +1,11 @@
+<view class="card">
+  <view class="muted" style="margin-bottom:10px">以下信息选填, 仅用于校园内互助联系, 不会公开给陌生人</view>
+  <view class="kvrow"><text class="k">昵称</text><text>{{info.nick}}</text></view>
+  <view class="kvrow"><text class="k">微信号</text><text>{{info.wechat}}</text></view>
+  <view class="kvrow"><text class="k">手机号</text><text>{{info.phone || '未授权'}}</text></view>
+</view>
+<view class="field"><label>真实姓名(选填)</label><input data-f="realName" placeholder="例：陈同学" value="{{info.realName}}" bindinput="onIn"/></view>
+<view class="field"><label>学院 / 专业(选填)</label><input data-f="college" placeholder="例：文学院汉语言文学" value="{{info.college}}" bindinput="onIn"/></view>
+<view class="field"><label>年级(选填)</label><input data-f="grade" placeholder="例：2023级" value="{{info.grade}}" bindinput="onIn"/></view>
+<view class="field"><label>常用楼栋(选填)</label><input data-f="building" placeholder="例：3号楼" value="{{info.building}}" bindinput="onIn"/></view>
+<view style="margin:18px"><button class="btn" bindtap="save">保存</button></view>

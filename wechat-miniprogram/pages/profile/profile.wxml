@@ -1,0 +1,15 @@
+<view class="head">
+  <image wx:if="{{me.avatar}}" class="av" src="{{me.avatar}}"/>
+  <view wx:else class="av">同</view>
+  <view class="nick">{{me.nick||'未登录'}}</view>
+  <view class="muted" style="color:#cfe">微信 {{me.wechat||'—'}}</view>
+  <view class="muted" style="color:#cfe">手机 {{me.phone||'未授权'}}</view>
+</view>
+<view class="cell" bindtap="go" data-url="/pages/userinfo/userinfo">个人信息(选填)</view>
+<view class="cell" bindtap="go" data-url="/pages/mypub/mypub">我发布的任务</view>
+<view class="cell" bindtap="go" data-url="/pages/myacc/myacc">我接的任务</view>
+<view class="cell" bindtap="go" data-url="/pages/admin/admin">管理员后台</view>
+<view class="cell" bindtap="go" data-url="/pages/agreement/agreement">用户协议</view>
+<view class="cell" bindtap="go" data-url="/pages/privacy/privacy">隐私政策</view>
+<view class="cell" bindtap="go" data-url="/pages/messages/messages">举报反馈</view>
+<view class="cell" bindtap="logout" style="color:#ff6b6b">退出登录</view>

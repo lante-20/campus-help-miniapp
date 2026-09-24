@@ -1,0 +1,8 @@
+<view wx:if="{{list.length===0}}" class="empty" style="padding:80px 0;color:#9aa5b1">你还没发布过任务</view>
+<view wx:for="{{list}}" wx:key="_id" class="card">
+  <view style="font-weight:600">{{item.pickup}}</view>
+  <view class="muted" style="margin-top:6px">
+    状态：{{item.status==='ongoing'?'进行中': item.status==='approved'?'待接单':'已结束'}}
+    {{item.acceptor ? ' · 接单人:'+item.acceptor.name : ''}}
+  </view>
+</view>

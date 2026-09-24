@@ -1,0 +1,8 @@
+<view class="card">
+  <view class="dt">接取须知</view>
+  <view class="li">1. 确认后任务状态变为「进行中」，你与发布者将自动开启站内对话。</view>
+  <view class="li">2. 请按约定时间取件/送餐，报酬由双方加微信私下转账，平台不介入。</view>
+  <view class="li">3. 取件后请拍照留证，避免纠纷。</view>
+  <view class="li">4. 若临时无法完成，请尽早通过站内消息告知发布者。</view>
+</view>
+<view style="margin:18px"><button class="btn" bindtap="confirm">确认接取</button></view>

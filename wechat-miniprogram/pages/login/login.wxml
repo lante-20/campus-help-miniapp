@@ -1,0 +1,20 @@
+<view class="wrap">
+  <view class="logo">校</view>
+  <view class="t">湖南好学院 · 校园公益互助</view>
+  <view class="s">纯公益校内信息平台 · 不收费不抽成</view>
+
+  <button class="avatar" open-type="chooseAvatar" bindchooseavatar="chooseAvatar">
+    <image wx:if="{{avatar}}" src="{{avatar}}" class="avimg"/>
+    <text wx:else class="avph">点此授权头像</text>
+  </button>
+
+  <input class="inp" type="nickname" placeholder="填写微信昵称" bindinput="onNick"/>
+  <input class="inp" placeholder="填写微信号(必填,用于双方联系)" bindinput="onWechat"/>
+
+  <button class="btn phone" open-type="getPhoneNumber" bindgetphonenumber="onGetPhone">
+    {{phone ? '已授权手机号 ' + phone : '手机号一键授权'}}
+  </button>
+
+  <button class="btn" bindtap="login">登 录</button>
+  <view class="tip">登录即代表同意《用户协议》《隐私政策》。平台不收集学号学生证,微信号公开展示在任务上供双方沟通。</view>
+</view>

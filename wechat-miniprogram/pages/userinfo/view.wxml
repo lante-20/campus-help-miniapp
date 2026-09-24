@@ -1,0 +1,11 @@
+<view class="card" style="text-align:center">
+  <image wx:if="{{d.avatar}}" class="bigav" src="{{d.avatar}}"/>
+  <view class="nick">{{d.nick}}</view>
+  <view class="muted">微信 {{d.wechat}}</view>
+</view>
+<view class="card">
+  <view class="kvrow"><text class="k">姓名</text><text>{{d.realName||'未填写'}}</text></view>
+  <view class="kvrow"><text class="k">学院/专业</text><text>{{d.college||'未填写'}}</text></view>
+  <view class="kvrow"><text class="k">年级</text><text>{{d.grade||'未填写'}}</text></view>
+</view>
+<view class="muted" style="text-align:center;padding:0 30px">线下交易请自行确认身份, 平台不担保。</view>

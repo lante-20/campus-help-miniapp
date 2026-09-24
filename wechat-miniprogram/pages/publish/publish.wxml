@@ -1,0 +1,22 @@
+<view class="field"><label>任务类型</label>
+  <picker range="{{types}}" range-key="1" bindchange="onType">
+    <view class="picker">{{types[typeIdx][1]}} ▾</view>
+  </picker>
+</view>
+<view wx:if="{{type!=='lost'}}" class="field"><label class="req">要拿的东西</label><input data-f="item" placeholder="例：圆通快递 取件码8865" value="{{item}}" bindinput="onIn"/></view>
+<view class="field"><label class="req">取件地点</label><input data-f="pickup" placeholder="例：菜鸟驿站(东门)" value="{{pickup}}" bindinput="onIn"/></view>
+<view class="field"><label class="req">送达地址</label><input data-f="building" placeholder="可填到具体门牌，例：3号楼512" value="{{building}}" bindinput="onIn"/></view>
+<view wx:if="{{type!=='lost'}}" class="field"><label>重量(选填)</label><input data-f="weight" placeholder="例：不大/约2kg" value="{{weight}}" bindinput="onIn"/></view>
+<view class="field"><label class="req">截止时间</label><input data-f="deadline" placeholder="例：今天 18:00" value="{{deadline}}" bindinput="onIn"/></view>
+<view wx:if="{{type!=='lost'}}" class="field"><label class="req">报酬(仅文字展示,私下自行转账)</label><input data-f="reward" placeholder="例：5元" value="{{reward}}" bindinput="onIn"/></view>
+<view class="field"><label>备注</label><textarea data-f="remark" placeholder="补充说明(禁止写代课/代签到/代考试)" value="{{remark}}" bindinput="onIn"/></view>
+<view style="margin:18px"><button class="btn" bindtap="submit">提交任务</button></view>
+
+<view wx:if="{{showWarn}}" class="mask">
+  <view class="dialog">
+    <view class="dt">⚠️ 温馨提示</view>
+    <view class="dd">本小程序为纯公益校内信息平台，不收费、不抽成。仅用于展示代拿/失物信息，不参与、不担保任何私下交易。所有报酬由双方自行加微信转账，交易、人身安全风险由当事人自行承担。禁止发布代课、代签到、违禁物品相关任务，违规账号将被封禁。</view>
+    <button class="btn" bindtap="confirmWarn">我已阅读，确认提交</button>
+    <button class="btn ghost" bindtap="cancelWarn" style="margin-top:10px">再想想</button>
+  </view>
+</view>

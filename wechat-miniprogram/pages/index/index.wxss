@@ -1,0 +1,13 @@
+.banner{background:linear-gradient(135deg,#5B9BE8,#4A90E2);color:#fff;padding:22px 18px;border-radius:0 0 20px 20px}
+.bt{font-size:20px;font-weight:700}
+.bs{font-size:12.5px;opacity:.9;margin-top:6px}
+.chips{white-space:nowrap;padding:12px 14px}
+.tt{font-size:16px;font-weight:600;margin:10px 0 6px}
+.kv{display:flex;justify-content:space-between;font-size:13.5px;padding:3px 0;color:#556}
+.k{color:#8a94a6}
+.remark{background:#F4F7FB;border-radius:8px;padding:8px 10px;font-size:13px;color:#556;margin:8px 0}
+.foot{margin-top:8px}
+.empty{text-align:center;color:#9aa5b1;padding:60px 0;font-size:14px}
+.pub{display:flex;align-items:center;margin-top:10px;border-top:1px solid #F0F4FA;padding-top:10px}
+.pubav{width:32px;height:32px;border-radius:50%;background:#E8F1FC;margin-right:8px}
+.pubname{font-size:13px;font-weight:600}

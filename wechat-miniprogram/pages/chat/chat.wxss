@@ -1,0 +1,8 @@
+.warn{background:#FFF7E6;color:#B26A00;font-size:12px;padding:8px 12px}
+.list{height:62vh;padding:12px}
+.b{max-width:70%;padding:10px 12px;border-radius:12px;margin-bottom:10px;font-size:14px}
+.mine{background:#4A90E2;color:#fff;margin-left:auto}
+.their{background:#fff}
+.bar{display:flex;gap:8px;padding:10px;border-top:1px solid #EDF0F5}
+.inp{flex:1;background:#F4F7FB;border-radius:20px;padding:8px 14px}
+.send{background:#4A90E2;color:#fff;border-radius:20px;font-size:14px;line-height:2}

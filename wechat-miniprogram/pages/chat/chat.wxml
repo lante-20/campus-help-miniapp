@@ -1,0 +1,9 @@
+<view class="warn">⚠️ 平台禁止互换手机号, 线下交易风险自负　<text style="color:#4A90E2" bindtap="report">举报</text></view>
+<scroll-view scroll-y class="list" scroll-into-view="bottom">
+  <view wx:for="{{msgs}}" wx:key="_id" id="m{{index}}" class="b {{item.fromWx===meWx?'mine':'their'}}">{{item.text}}</view>
+  <view id="bottom"></view>
+</scroll-view>
+<view class="bar">
+  <input class="inp" value="{{input}}" bindinput="onIn" placeholder="输入消息, 勿发手机号"/>
+  <button class="send" bindtap="send">发送</button>
+</view>

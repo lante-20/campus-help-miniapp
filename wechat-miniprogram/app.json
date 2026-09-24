@@ -1,0 +1,39 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/publish/publish",
+    "pages/detail/detail",
+    "pages/accept/accept",
+    "pages/messages/messages",
+    "pages/chat/chat",
+    "pages/profile/profile",
+    "pages/userinfo/userinfo",
+    "pages/userinfo/view",
+    "pages/mypub/mypub",
+    "pages/myacc/myacc",
+    "pages/admin/admin",
+    "pages/agreement/agreement",
+    "pages/privacy/privacy"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#4A90E2",
+    "navigationBarTitleText": "校园公益互助",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#9aa5b1",
+    "selectedColor": "#4A90E2",
+    "backgroundColor": "#ffffff",
+    "list": [
+      { "pagePath": "pages/index/index", "text": "首页" },
+      { "pagePath": "pages/publish/publish", "text": "发布" },
+      { "pagePath": "pages/messages/messages", "text": "消息" },
+      { "pagePath": "pages/profile/profile", "text": "我的" }
+    ]
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

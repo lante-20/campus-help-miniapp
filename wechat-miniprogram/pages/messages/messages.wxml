@@ -1,0 +1,7 @@
+<view wx:if="{{list.length===0}}" class="muted" style="text-align:center;padding:80px 0">暂无进行中的对话</view>
+<view wx:for="{{list}}" wx:key="_id" class="card" data-t="{{item}}" bindtap="goChat">
+  <view style="font-weight:600">{{item.pickup}}</view>
+  <view class="muted" style="margin-top:6px">
+    {{item.pubWechat===meWx ? ('接单人: '+(item.acceptor&&item.acceptor.name)) : ('发布者: '+item.pubName)}} · 点我沟通
+  </view>
+</view>

@@ -1,0 +1,5 @@
+<view wx:if="{{list.length===0}}" class="empty" style="padding:80px 0;color:#9aa5b1">你还没接过任务</view>
+<view wx:for="{{list}}" wx:key="_id" class="card">
+  <view style="font-weight:600">{{item.pickup}}</view>
+  <view class="muted" style="margin-top:6px">发布者: {{item.pubName}} · 微信 {{item.pubWechat}}</view>
+</view>

@@ -1,0 +1,4 @@
+.tt{font-size:17px;font-weight:700;margin:10px 0}
+.kv{display:flex;justify-content:space-between;font-size:14px;padding:4px 0}
+.k{color:#8a94a6}
+.remark{background:#F4F7FB;border-radius:8px;padding:8px 10px;font-size:13px;color:#556;margin-top:8px}
