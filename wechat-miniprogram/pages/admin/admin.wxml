@@ -1,6 +1,9 @@
-<view class="muted" style="padding:12px 16px">举报记录</view>
-<view wx:if="{{reports.length===0}}" class="muted" style="text-align:center;padding:40px 0">暂无举报</view>
+<view class="demo-note">举报处理流程演示：仅展示本机记录，尚未连接管理员服务。</view>
+<view wx:if="{{loading}}" class="state">正在加载…</view>
+<view wx:elif="{{error}}" class="state error">{{error}}<button size="mini" bindtap="load">重试</button></view>
+<view wx:elif="{{reports.length===0}}" class="state">暂无本机举报记录</view>
 <view wx:for="{{reports}}" wx:key="_id" class="card">
-  <view style="font-weight:600">{{item.reason}}</view>
-  <view class="muted" style="margin-top:6px">举报人: {{item.reporterWx}}　被举报: {{item.targetWx}}</view>
+  <view>{{item.reason}}</view>
+  <view class="muted">举报账号：{{item.reporterWx}} · 被举报账号：{{item.targetWx}}</view>
+  <view class="muted">状态：仅本机保存，未提交到云端</view>
 </view>

@@ -1,0 +1,4 @@
+node_modules/
+coverage/
+wechat-miniprogram/project.private.config.json
+.DS_Store

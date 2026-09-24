@@ -1,12 +1,19 @@
-// pages/userinfo/userinfo.js
+const session = require('../../utils/session');
 Page({
-  data: { info:{} },
-  onLoad(){ this.setData({ info: wx.getStorageSync('me') || {} }); },
-  onIn(e){ this.setData({ ['info.'+e.currentTarget.dataset.f]: e.detail.value }); },
-  save(){
-    wx.setStorageSync('me', this.data.info);
-    getApp().globalData.me = this.data.info;
-    wx.showToast({ title:'已保存', icon:'success' });
-    setTimeout(()=> wx.navigateBack(), 700);
+  data: { info: {}, saving: false },
+  onShow() { if (session.ensurePage()) this.setData({ info: Object.assign({}, session.current()) }); },
+  onIn(e) {
+    const field = e.currentTarget.dataset.f;
+    if (['realName', 'college', 'grade', 'building'].indexOf(field) >= 0) this.setData({ ['info.' + field]: e.detail.value });
+  },
+  async save() {
+    if (this.data.saving) return;
+    this.setData({ saving: true });
+    try {
+      await session.saveInfo(this.data.info);
+      wx.showToast({ title: '已保存', icon: 'success' });
+      wx.navigateBack();
+    } catch (error) { wx.showModal({ title: '保存失败', content: error.message, showCancel: false }); }
+    finally { this.setData({ saving: false }); }
   }
 });

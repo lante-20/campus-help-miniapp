@@ -1,22 +1,17 @@
-// pages/accept/accept.js
-const db = require('../../utils/db.js');
+const session = require('../../utils/session');
+const service = require('../../utils/task-service');
 Page({
-  data: { id:'' },
-  onLoad(q){ this.setData({ id: q.id }); },
-  confirm(){
-    const me = getApp().globalData.me || {};
-    if(!me.wechat){ wx.showToast({title:'请先在我的页填微信号',icon:'none'}); return; }
-    wx.showLoading({ title:'接单中' });
-    db.ready.then((dd) => {
-      return dd.collection('tasks').doc(this.data.id).update({
-        data: { status:'ongoing', acceptor:{ name:me.nick, wechat:me.wechat, avatar:me.avatar } }
-      });
-    }).then(()=>{
-      wx.hideLoading();
-      wx.showModal({ title:'接单成功', content:'已为你和发布者开启沟通，请尽快加微信联系取件。交易与安全风险自负。', showCancel:false, success:()=>wx.navigateBack() });
-    }).catch((e)=>{
-      wx.hideLoading(); console.error(e);
-      wx.showToast({ title:'接单失败，请重试', icon:'none' });
-    });
+  data: { id: '', saving: false },
+  onLoad(q) { this.setData({ id: q.id || '' }); },
+  onShow() { session.ensurePage(); },
+  async confirm() {
+    if (this.data.saving || !session.ensurePage()) return;
+    this.setData({ saving: true });
+    try {
+      await service.accept(this.data.id);
+      wx.showModal({ title: '接取成功', content: '可以在任务详情或“消息”中查看本机演示对话。', showCancel: false, success: () => wx.navigateBack() });
+    } catch (error) {
+      wx.showModal({ title: '无法接取', content: error.message || '请刷新后重试', showCancel: false });
+    } finally { this.setData({ saving: false }); }
   }
 });

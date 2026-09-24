@@ -1,11 +1,13 @@
-// app.js
+const session = require('./utils/session');
 App({
-  globalData: {
-    me: null
-  },
+  globalData: { me: null },
   onLaunch() {
-    this.globalData.me = wx.getStorageSync('me') || null;
-    // 预热数据库连接（匿名登录）
-    require('./utils/db.js');
+    try {
+      this.globalData.me = session.restore();
+    } catch (error) {
+      this.globalData.me = null;
+      console.error('读取本机身份失败', error);
+      wx.showToast({ title: error.message || '本地数据读取失败', icon: 'none' });
+    }
   }
 });

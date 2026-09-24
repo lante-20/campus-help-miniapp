@@ -1,9 +1,11 @@
-<view class="warn">⚠️ 平台禁止互换手机号, 线下交易风险自负　<text style="color:#4A90E2" bindtap="report">举报</text></view>
-<scroll-view scroll-y class="list" scroll-into-view="bottom">
-  <view wx:for="{{msgs}}" wx:key="_id" id="m{{index}}" class="b {{item.fromWx===meWx?'mine':'their'}}">{{item.text}}</view>
-  <view id="bottom"></view>
+<view class="warn">本机演示对话，请勿输入真实手机号。<text class="link" bindtap="report">举报</text></view>
+<view wx:if="{{error}}" class="state error">{{error}}<button size="mini" bindtap="load">重试</button></view>
+<scroll-view scroll-y class="list" scroll-into-view="{{scrollTarget}}">
+  <button wx:if="{{hasMore}}" size="mini" disabled="{{loading}}" bindtap="loadEarlier">加载更早消息</button>
+  <view wx:if="{{!loading && !error && msgs.length===0}}" class="state">还没有消息，发一句问候吧。</view>
+  <view wx:for="{{msgs}}" wx:key="_id" id="m_{{item._id}}" class="b {{item.fromWx===meWx?'mine':'their'}}">{{item.text}}</view>
 </scroll-view>
 <view class="bar">
-  <input class="inp" value="{{input}}" bindinput="onIn" placeholder="输入消息, 勿发手机号"/>
-  <button class="send" bindtap="send">发送</button>
+  <input class="inp" maxlength="500" value="{{input}}" bindinput="onIn" bindconfirm="send" confirm-type="send" placeholder="输入演示消息"/>
+  <button class="send" loading="{{sending}}" disabled="{{sending || !!error}}" bindtap="send">发送</button>
 </view>
