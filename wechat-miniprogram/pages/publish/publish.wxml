@@ -1,22 +1,34 @@
+<view class="demo-note">本机演示：请使用虚构信息，可在“我的”切换账号体验接单。</view>
+<view wx:if="{{draftError}}" class="state error">{{draftError}}</view>
 <view class="field"><label>任务类型</label>
-  <picker range="{{types}}" range-key="1" bindchange="onType">
-    <view class="picker">{{types[typeIdx][1]}} ▾</view>
+  <picker range="{{types}}" range-key="label" value="{{typeIdx}}" bindchange="onType">
+    <view class="picker">{{types[typeIdx].label}} ▾</view>
   </picker>
 </view>
-<view wx:if="{{type!=='lost'}}" class="field"><label class="req">要拿的东西</label><input data-f="item" placeholder="例：圆通快递 取件码8865" value="{{item}}" bindinput="onIn"/></view>
-<view class="field"><label class="req">取件地点</label><input data-f="pickup" placeholder="例：菜鸟驿站(东门)" value="{{pickup}}" bindinput="onIn"/></view>
-<view class="field"><label class="req">送达地址</label><input data-f="building" placeholder="可填到具体门牌，例：3号楼512" value="{{building}}" bindinput="onIn"/></view>
-<view wx:if="{{type!=='lost'}}" class="field"><label>重量(选填)</label><input data-f="weight" placeholder="例：不大/约2kg" value="{{weight}}" bindinput="onIn"/></view>
-<view class="field"><label class="req">截止时间</label><input data-f="deadline" placeholder="例：今天 18:00" value="{{deadline}}" bindinput="onIn"/></view>
-<view wx:if="{{type!=='lost'}}" class="field"><label class="req">报酬(仅文字展示,私下自行转账)</label><input data-f="reward" placeholder="例：5元" value="{{reward}}" bindinput="onIn"/></view>
-<view class="field"><label>备注</label><textarea data-f="remark" placeholder="补充说明(禁止写代课/代签到/代考试)" value="{{remark}}" bindinput="onIn"/></view>
-<view style="margin:18px"><button class="btn" bindtap="submit">提交任务</button></view>
-
+<view class="field"><label class="req">{{type==='lost' ? '遗失 / 拾获的物品名称' : '要拿的物品'}}</label><input data-f="item" maxlength="80" placeholder="例：蓝色雨伞 / 一份外卖" value="{{item}}" bindinput="onIn"/></view>
+<view class="field"><label class="req">{{type==='lost' ? '遗失 / 拾获地点' : '取件地点'}}</label><input data-f="pickup" maxlength="100" placeholder="例：图书馆一楼" value="{{pickup}}" bindinput="onIn"/></view>
+<block wx:if="{{type!=='lost'}}">
+  <view class="field"><label class="req">送达地址（仅任务双方在页面中可见）</label><input data-f="building" maxlength="100" placeholder="请使用虚构地址" value="{{building}}" bindinput="onIn"/></view>
+  <view class="field"><label>取件码（选填，仅任务双方在页面中可见）</label><input data-f="pickupCode" maxlength="40" placeholder="演示时请勿填写真实取件码" value="{{pickupCode}}" bindinput="onIn"/></view>
+  <view class="field"><label>重量（选填）</label><input data-f="weight" maxlength="30" placeholder="例：约 2 kg" value="{{weight}}" bindinput="onIn"/></view>
+  <view class="field"><label class="req">截止日期</label><picker mode="date" start="{{today}}" value="{{deadlineDate}}" data-f="deadlineDate" bindchange="onIn"><view class="picker">{{deadlineDate || '请选择日期'}}</view></picker></view>
+  <view class="field"><label class="req">截止时间</label><picker mode="time" value="{{deadlineTime}}" data-f="deadlineTime" bindchange="onIn"><view class="picker">{{deadlineTime || '请选择时间'}}</view></picker></view>
+  <view class="field"><label class="req">报酬金额（元，0 表示无偿）</label><input type="digit" data-f="reward" maxlength="7" placeholder="例：5.00，仅演示展示" value="{{reward}}" bindinput="onIn"/></view>
+</block>
+<block wx:else>
+  <view class="field"><label class="req">遗失 / 拾获日期</label><picker mode="date" end="{{today}}" value="{{eventDate}}" data-f="eventDate" bindchange="onIn"><view class="picker">{{eventDate || '请选择日期'}}</view></picker></view>
+  <view class="field"><label class="req">遗失 / 拾获时间</label><picker mode="time" value="{{eventTime}}" data-f="eventTime" bindchange="onIn"><view class="picker">{{eventTime || '请选择时间'}}</view></picker></view>
+</block>
+<view class="field"><label>{{type==='lost' ? '物品特征及遗失 / 拾获说明（必填）' : '备注（选填）'}}</label><textarea data-f="remark" maxlength="500" placeholder="公开描述中请勿填写取件码、手机号等信息" value="{{remark}}" bindinput="onIn"/></view>
+<view class="actions">
+  <button class="btn" loading="{{saving}}" disabled="{{saving}}" bindtap="submit">发布任务</button>
+  <button class="btn ghost" disabled="{{saving}}" bindtap="saveDraft">保存草稿</button>
+</view>
 <view wx:if="{{showWarn}}" class="mask">
   <view class="dialog">
-    <view class="dt">⚠️ 温馨提示</view>
-    <view class="dd">本小程序为纯公益校内信息平台，不收费、不抽成。仅用于展示代拿/失物信息，不参与、不担保任何私下交易。所有报酬由双方自行加微信转账，交易、人身安全风险由当事人自行承担。禁止发布代课、代签到、违禁物品相关任务，违规账号将被封禁。</view>
-    <button class="btn" bindtap="confirmWarn">我已阅读，确认提交</button>
-    <button class="btn ghost" bindtap="cancelWarn" style="margin-top:10px">再想想</button>
+    <view class="dt">确认发布演示任务</view>
+    <view class="dd">任务仅保存在当前设备。物品名称、取件地点和描述会展示给本机的其他演示账号。请使用虚构信息，不要填入真实手机号、取件码或个人地址。</view>
+    <button class="btn" bindtap="confirmWarn">确认发布</button>
+    <button class="btn ghost" bindtap="cancelWarn">继续编辑</button>
   </view>
 </view>

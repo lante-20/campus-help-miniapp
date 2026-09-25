@@ -1,7 +1,9 @@
-<view wx:if="{{list.length===0}}" class="muted" style="text-align:center;padding:80px 0">暂无进行中的对话</view>
-<view wx:for="{{list}}" wx:key="_id" class="card" data-t="{{item}}" bindtap="goChat">
-  <view style="font-weight:600">{{item.pickup}}</view>
-  <view class="muted" style="margin-top:6px">
-    {{item.pubWechat===meWx ? ('接单人: '+(item.acceptor&&item.acceptor.name)) : ('发布者: '+item.pubName)}} · 点我沟通
-  </view>
+<view class="demo-note">切换本机演示账号可模拟回复。已完成任务的对话会保留。</view>
+<view wx:if="{{error}}" class="state error">{{error}}<button size="mini" bindtap="load">重试</button></view>
+<view wx:elif="{{!loading && list.length===0}}" class="state">接取任务后，对话会显示在这里。</view>
+<view wx:for="{{list}}" wx:key="_id" class="card" data-id="{{item._id}}" bindtap="goChat">
+  <view class="row"><text>{{item.item || item.pickup}}</text><text class="tag">{{item.statusText}}</text></view>
+  <view class="muted">{{item.isPub ? '接取者：' + item.acceptor.name : '发布者：' + item.pubName}} · 点此进入对话</view>
 </view>
+<view wx:if="{{loading}}" class="state">正在加载…</view>
+<button wx:elif="{{hasMore}}" class="load-more" size="mini" bindtap="loadMore">加载更多</button>

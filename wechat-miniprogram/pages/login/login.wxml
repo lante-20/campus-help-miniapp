@@ -1,20 +1,16 @@
 <view class="wrap">
   <view class="logo">校</view>
-  <view class="t">湖南好学院 · 校园公益互助</view>
-  <view class="s">纯公益校内信息平台 · 不收费不抽成</view>
-
+  <view class="t">校园公益互助</view>
+  <view class="s">本机演示 · 数据不会同步到其他设备</view>
   <button class="avatar" open-type="chooseAvatar" bindchooseavatar="chooseAvatar">
     <image wx:if="{{avatar}}" src="{{avatar}}" class="avimg"/>
-    <text wx:else class="avph">点此授权头像</text>
+    <text wx:else class="avph">头像选填</text>
   </button>
-
-  <input class="inp" type="nickname" placeholder="填写微信昵称" bindinput="onNick"/>
-  <input class="inp" placeholder="填写微信号(必填,用于双方联系)" bindinput="onWechat"/>
-
-  <button class="btn phone" open-type="getPhoneNumber" bindgetphonenumber="onGetPhone">
-    {{phone ? '已授权手机号 ' + phone : '手机号一键授权'}}
-  </button>
-
-  <button class="btn" bindtap="login">登 录</button>
-  <view class="tip">登录即代表同意《用户协议》《隐私政策》。平台不收集学号学生证,微信号公开展示在任务上供双方沟通。</view>
+  <view wx:if="{{avatar}}" class="tip link" bindtap="clearAvatar">跳过头像</view>
+  <input class="inp" type="nickname" maxlength="30" placeholder="演示昵称" value="{{nick}}" bindinput="onNick"/>
+  <input class="inp" maxlength="20" placeholder="演示账号，例如 studentA" value="{{wechat}}" bindinput="onWechat"/>
+  <button class="btn" loading="{{saving}}" disabled="{{saving}}" bindtap="login">进入本机演示</button>
+  <view class="tip">账号为本机演示标识，6–20 位、字母开头，无需填写真实微信号或手机号。相同账号可继续查看原来的任务。</view>
+  <view class="tip">可在“我的”切换另一账号，模拟发布者和接单人。请勿输入真实取件码、门牌等敏感信息。</view>
+  <view class="tip"><text class="link" data-page="agreement" bindtap="goDocument">使用说明</text> · <text class="link" data-page="privacy" bindtap="goDocument">隐私说明</text></view>
 </view>

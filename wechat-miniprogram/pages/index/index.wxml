@@ -1,27 +1,18 @@
 <view class="banner">
-  <view class="bt">湖南好学院 · 校园互助</view>
-  <view class="bs">纯公益信息平台 · 不收费不抽成 · 交易风险自负</view>
+  <view class="bt">校园互助</view>
+  <view class="bs">本机演示 · 在“我的”切换账号模拟接单</view>
 </view>
 <scroll-view scroll-x class="chips" enable-flex>
-  <view wx:for="{{chips}}" wx:key="*this" class="chip {{filter===item[0]?'active':''}}" data-k="{{item[0]}}" bindtap="setFilter">{{item[1]}}</view>
+  <view wx:for="{{chips}}" wx:key="value" class="chip {{filter===item.value?'active':''}}" data-k="{{item.value}}" bindtap="setFilter">{{item.label}}</view>
 </scroll-view>
-<view wx:if="{{list.length===0}}" class="empty">暂无任务, 点底部「发布」发布第一条</view>
+<view wx:if="{{error}}" class="state error">{{error}}<button size="mini" bindtap="load">重新加载</button></view>
+<view wx:elif="{{!loading && list.length===0}}" class="state">暂无这类任务，可点“发布”创建演示任务。</view>
 <view wx:for="{{list}}" wx:key="_id" class="card" bindtap="goDetail" data-id="{{item._id}}">
-  <view class="row">
-    <text class="tag">{{typeLabel[item.type]}}</text>
-    <text wx:if="{{item.reward}}" class="reward">报酬 {{item.reward}}</text>
-  </view>
+  <view class="row"><text class="tag">{{item.typeLabel}}</text><text class="reward">{{item.reward}}</text><text class="muted">{{item.statusText}}</text></view>
   <view class="tt">{{item.item || item.pickup}}</view>
-  <view wx:if="{{item.weight}}" class="kv"><text class="k">重量</text><text>{{item.weight}}</text></view>
-  <view class="kv"><text class="k">取件地点</text><text>{{item.pickup}}</text></view>
-  <view class="kv"><text class="k">送达地址</text><text>{{item.building}}</text></view>
-  <view class="kv"><text class="k">截止时间</text><text>{{item.deadline}}</text></view>
-  <view wx:if="{{item.remark}}" class="remark">{{item.remark}}</view>
-  <view class="pub">
-    <image class="pubav" src="{{item.pubAvatar}}"></image>
-    <view class="pubinfo">
-      <view class="pubname">{{item.pubName}}</view>
-      <view class="muted">微信 {{item.pubWechat}}</view>
-    </view>
-  </view>
+  <view class="kv"><text class="k">{{item.type==='lost' ? '遗失 / 拾获地点' : '取件地点'}}</text><text>{{item.pickup}}</text></view>
+  <view class="kv"><text class="k">{{item.type==='lost' ? '遗失 / 拾获时间' : '截止时间'}}</text><text>{{item.type==='lost' ? item.eventTimeText : item.deadline}}</text></view>
+  <view class="pub"><text class="pubname">{{item.pubName}}</text></view>
 </view>
+<view wx:if="{{loading}}" class="state">正在加载…</view>
+<button wx:elif="{{hasMore}}" class="load-more" size="mini" bindtap="loadMore">加载更多</button>

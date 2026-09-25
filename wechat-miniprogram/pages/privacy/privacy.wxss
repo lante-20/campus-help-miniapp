@@ -1,3 +1,1 @@
-.doc{padding:18px}
-.h{font-size:18px;font-weight:700;margin-bottom:12px}
-p{font-size:14px;color:#445;line-height:1.8;margin:8px 0}
+.doc{padding:18px}.h{font-size:18px;font-weight:700;margin-bottom:12px}.paragraph{font-size:14px;color:#445;line-height:1.8;margin:12px 0}

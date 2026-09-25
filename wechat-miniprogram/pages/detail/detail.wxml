@@ -1,23 +1,30 @@
-<view class="card">
-  <view class="row">
-    <text class="tag">{{typeLabel}}</text>
-    <text wx:if="{{t.reward}}" class="reward">报酬 {{t.reward}}</text>
-    <text class="muted" style="margin-left:auto">{{statusText}}</text>
+<view wx:if="{{loading}}" class="state">正在加载任务…</view>
+<view wx:elif="{{error}}" class="state error">{{error}}<button size="mini" bindtap="load">重试</button></view>
+<block wx:elif="{{t}}">
+  <view class="card">
+    <view class="row"><text class="tag">{{t.typeLabel}}</text><text class="reward">{{t.reward}}</text><text class="muted">{{t.statusText}}</text></view>
+    <view class="tt">{{t.item || t.pickup}}</view>
+    <view class="kv"><text class="k">{{t.type==='lost' ? '遗失 / 拾获地点' : '取件地点'}}</text><text>{{t.pickup}}</text></view>
+    <view wx:if="{{t.type==='lost'}}" class="kv"><text class="k">遗失 / 拾获时间</text><text>{{t.eventTimeText || '未记录'}}</text></view>
+    <block wx:else>
+      <view wx:if="{{t.weight}}" class="kv"><text class="k">重量</text><text>{{t.weight}}</text></view>
+      <view class="kv"><text class="k">截止时间</text><text>{{t.deadline}}</text></view>
+      <block wx:if="{{t.canViewPrivate}}">
+        <view class="kv"><text class="k">送达地址</text><text>{{t.building}}</text></view>
+        <view wx:if="{{t.pickupCode}}" class="kv"><text class="k">取件码</text><text>{{t.pickupCode}}</text></view>
+      </block>
+      <view wx:else class="muted">接取后可在页面中查看送达地址和取件码。</view>
+    </block>
+    <view wx:if="{{t.remark}}" class="remark">{{t.remark}}</view>
   </view>
-  <view class="tt">{{t.item || t.pickup}}</view>
-  <view wx:if="{{t.item}}" class="kv"><text class="k">要拿的东西</text><text>{{t.item}}</text></view>
-  <view wx:if="{{t.weight}}" class="kv"><text class="k">重量</text><text>{{t.weight}}</text></view>
-  <view class="kv"><text class="k">取件地点</text><text>{{t.pickup}}</text></view>
-  <view class="kv"><text class="k">送达地址</text><text>{{t.building}}</text></view>
-  <view class="kv"><text class="k">截止时间</text><text>{{t.deadline}}</text></view>
-  <view wx:if="{{t.remark}}" class="remark">{{t.remark}}</view>
-</view>
-<view class="card" bindtap="viewPub">
-  <view class="kv"><text class="k">发布者</text><text style="color:#4A90E2">{{t.pubName}} ›</text></view>
-  <view class="kv"><text class="k">微信号</text><text bindtap="copyWechat">{{t.pubWechat}}(点我复制)</text></view>
-</view>
-<view style="margin:18px">
-  <button wx:if="{{!isPub && t.status!=='ongoing'}}" class="btn" bindtap="goAccept">报名接单</button>
-  <button wx:if="{{t.status==='ongoing'}}" class="btn" bindtap="contact">联系对方</button>
-  <button wx:if="{{isPub && t.status!=='done'}}" class="btn ghost" bindtap="finishTask">结束任务</button>
-</view>
+  <view class="card">
+    <view class="kv"><text class="k">发布者</text><text>{{t.pubName}}</text></view>
+    <view wx:if="{{t.canViewPrivate}}" class="kv"><text class="k">演示账号</text><text>{{t.pubWechat}}</text></view>
+    <view wx:if="{{t.acceptor}}" class="kv"><text class="k">接取者</text><text>{{t.acceptor.name}}</text></view>
+  </view>
+  <view class="actions">
+    <button wx:if="{{t.canAccept}}" class="btn" bindtap="goAccept">接取任务</button>
+    <button wx:if="{{t.canContact}}" class="btn" bindtap="contact">进入对话</button>
+    <button wx:if="{{t.canFinish}}" class="btn ghost" loading="{{saving}}" disabled="{{saving}}" bindtap="finishTask">{{t.finishLabel}}</button>
+  </view>
+</block>

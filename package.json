@@ -1,0 +1,10 @@
+{
+  "name": "campus-help-miniapp",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/app.test.js",
+    "check": "node scripts/check.js"
+  },
+  "engines": { "node": ">=18" }
+}
